@@ -1,28 +1,23 @@
-# hu-oss-sw-2018-spring
-GitHub education repository of spring 2018 semester.
+# Medipartner AI_demosite
+Medipartner가 보유한 AI 알고리즘을 적용을 확인할 수 있는 사이트입니다.
+
+# How to use
+
+1. pip install virtualenv
+
+2. virtualenv [가상환경명]
+
+3. call [가상환경명]/scripts/activate (가상환경 activate)
+
+4. pip install -r requirements.txt
+
+5. **Run "main.py"**
+
+6. 127.0.0.1:5000 접속
 
 
-Week 2 : branch master with test_2
-
-## Week 3
-
-### 10:00~11:00 class
-| OSS frontend framework | Members |
-|------------------------|---------|
-| React          | 최하은, 오유림, 임정아 |
-| Bootstrap      | 문기훈, 김윤기, 김태윤|
-| Vue.js         | 구근모, 손민우, 유승찬  |
-| Polymer    		 |박온유, 조용일, 노건웅 |
-| Angular JS 		 |염지훈, 백채현, 강민성 |
-
-
-### 11:00~12:00 class
-| OSS frontend framework | Members |
-|------------------------|---------|
-| Bootstrap             | 공태웅, 김도현, 김용준, 권영훈, 문제웅|
-| Vue.js              | 주한새, 양재우, 김유신, 김재훈, 김태오|
-| Angular JS             | 김예준, 이재훈, 이하영, 정회성, 황예림 |
-| React | 이정인, 안진성, 이효빈, 박태완, 장원익 |
-| React                  | 서호진, 이혜진, 김성찬, 이국곤, 김민준|
-| Polymer                | 이재희, 남윤재, 이현준, 문성인, 이제신 |
-| Bootstrap | 강민석, 윤성호, 김다인, 이혜원, 김건기|
+# Arguments
+usage:
+```
+python server.py
+```
