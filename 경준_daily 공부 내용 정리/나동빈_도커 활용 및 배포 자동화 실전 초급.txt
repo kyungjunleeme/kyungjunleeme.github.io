@@ -1,0 +1,11 @@
+﻿1강
+
+chmod 400 권한 설정
+
+sha1:48ef17455362:7a436614a57e6fcf55dccc3c73839bf0a095b4c3
+
+https://oops.org/?t=lecture&sb=sslwrap&n=2
+
+https://www.youtube.com/watch?v=LoYpXoBJPMc&list=PLRx0vPvlEmdChjc6N3JnLaX-Gihh5pHcx&index=2 
+
+오류 떠서 막힘 ,나동빈님에게 질문 남김
