@@ -1,0 +1,13 @@
+공부 소스
+
+https://netaddr.readthedocs.io/en/latest/tutorial_01.html
+
+https://docs.python.org/3/library/ipaddress.html
+
+https://www.tutorialspoint.com/python/python_network_programming_introduction.htm
+
+
+https://unius.tistory.com/entry/IPTV-%EA%B8%B0%EB%B3%B8-%EA%B8%B0%EC%88%A0%EC%A4%91%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EB%A9%80%ED%8B%B0%EC%BA%90%EC%8A%A4%ED%8A%B8Multicast%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%98%EB%82%98
+
+iptv
+
