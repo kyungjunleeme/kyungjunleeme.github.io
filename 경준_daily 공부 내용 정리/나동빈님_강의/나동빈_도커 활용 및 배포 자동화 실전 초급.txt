@@ -1,11 +1,91 @@
 ﻿1강
+상속안함
+관리자
+System만 권한 나둠
+
 
 chmod 400 권한 설정
 
-sha1:48ef17455362:7a436614a57e6fcf55dccc3c73839bf0a095b4c3
+sudo apt-get update
+sudo apt-get install vim
+sudo apt-get install python3-pip
+sudo apt-get install pip3 notebook
+python3
+
+from notebook.auth import passwd
+passwd()
+
+shq1 값을 복사하고
+
+exit()
+
+
+yes
+
+sha1:a3f748eff68d:426fce705a839877479c40ad4dc6de0c65609951
+
+jupyter notebook --generate-config
+
+ubuntu@ip-172-31-32-181:~$ jupyter notebook --generate-config
+Writing default config to: /home/ubuntu/.jupyter/jupyter_notebook_config.py
+
+보안 
+
+
+사설 ip 입력
+
+
+c = get_config()                                                                                                                     c.NotebookApp.password = u'sha1:a3f748eff68d:426fce705a839877479c40ad4dc6de0c65609951'                                 c.NotebookApp.ip = '172.31.32.181'                                                                                       c.NotebookApp.notebook_dir = '/'                                                                                                                                                             ~                                          
+루트권한 실행
+sudo jupyter-notebook --allow-root
+
+http://172.31.32.181:8888/
+
+보안 그룹 으로 가서
+
+인바운드에 포트 8888 0.0.0.0/0
+
+bg
+
+disown -h (소유권 포기)
+
+sudo netstat -nap | grep 8888
+
+sudo kill -9 4978
+
+개인키, 공개키
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout "cert.key" -out "cert.pem" -batch
+
+
 
 https://oops.org/?t=lecture&sb=sslwrap&n=2
 
 https://www.youtube.com/watch?v=LoYpXoBJPMc&list=PLRx0vPvlEmdChjc6N3JnLaX-Gihh5pHcx&index=2 
 
 오류 떠서 막힘 ,나동빈님에게 질문 남김
+
+
+
+https://statkclee.github.io/bigdata/bigdata-pyspark-prerequisite.html#1_pyspark_ide_1
+
+
+sudo vi /etc/systemd/system/jupyter.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable jupyter
+sudo systemctl start jupyter
+sudo systemctl status jupyter
+sudo systemctl restart jupyter
+
+
+
+
+
+
+
+
+
+
+
+
