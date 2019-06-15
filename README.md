@@ -1,5 +1,5 @@
-# Medipartner AI_demosite
-Medipartner가 보유한 AI 알고리즘을 적용을 확인할 수 있는 사이트입니다.
+# AI_demosite
+AI 알고리즘을 적용을 확인할 수 있는 사이트입니다.
 
 # How to use
 
