@@ -1,0 +1,7 @@
+from flask import request
+
+@app.route('/register', methods=['GET','POST']
+def register():
+	print(requst.method)
+	
+
