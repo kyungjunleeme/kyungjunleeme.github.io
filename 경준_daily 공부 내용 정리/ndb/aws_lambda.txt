@@ -12,3 +12,10 @@ Event가 발생했을때 우리가 작성한 함수가 동작할 수 있도록
 
 https://ndb796.tistory.com/274
 
+2강
+
+pip3 install bs4 -t .
+해당 폴더에 beautifulsoup 설치
+
+
+zip -r bs4.zip .
