@@ -119,6 +119,7 @@ exit
 
 docker inspect <conatiner id>
 
+# EC2 인스턴ㄴ스에 mysql 설치
 apt install mysql-client-core-5.7
 
 
@@ -135,9 +136,49 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'test'@'%';
 Query OK, 0 rows affected (0.00 sec)
 
+MYSQL_ROOT_PASSWORD=PASSWORD
+
+            "SandboxKey": "/var/run/docker/netns/30dde85bf328",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "0278e2ca3fcc33223027806b78e9c70206729caac2739531c3b2df99486d09e4",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2"
+
+mysql -u root -p --host 172.17.0.2 --port 3306
+
+# Connect PHP & MYSQL
+RUN apt-get install -y php5.6-mysql
 
 
+docker run -p 80:80 -v /home/ubuntu/example/html:/var/www/html example
 
+<?php
+    $conn = mysqli_connect(
+        '13.125.248.119',
+        'test',
+        'password',
+        'TEST',
+        '9876'
+    );
+    if(mysqli_connect_errno()) {
+        echo "Faild to connect to MySQL: ".mysqli_connect_error();
+    }
+    $sql = "SELECT VERSION()";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    print_r($row["VERSION()"]);
+?>
+
+
+-----------------------------------------------------------
+RDS 생성
+
+파라미터 그룹 생성 후
+편집 눌러서
+파라미터 값 설정 utf-8 / utf-8 general_ci
 
 
 
