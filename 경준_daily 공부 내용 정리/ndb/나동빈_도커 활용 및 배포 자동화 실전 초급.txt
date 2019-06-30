@@ -181,4 +181,44 @@ RDS 생성
 파라미터 값 설정 utf-8 / utf-8 general_ci
 
 
+---------------------------------------------------------------------------------------------------
+[9강]
+도커(Docker) 활용 및 배포 자동화 실전 초급 ⑨ DockerHub와 GitHub 연동하기
 
+docker images
+
+일반적으로 container부터 먼저 삭제
+docker rm -f `docker ps -a -q`
+
+docker rmi -f `docker images`
+
+
+cd /home/ubuntu
+ls
+
+cd Docker-Practice
+ls
+mkdir Project
+mv index.ph ./Project/index.php
+ls
+cd Project
+ls
+cd ..
+git add .
+git commit -m "Change index.php path"
+git push
+
+root@ip-172-31-34-183:~/Docker-Practice# git push
+Username for 'https://github.com': kyungjunleeme
+Password for 'https://kyungjunleeme@github.com':
+To https://github.com/kyungjunleeme/Docker-Practice.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/kyungjunleeme/Docker-Practice.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+>>> read.me 파일 수정해서 생긴 에러 
+>>> 이 경우 pull을 먼저 해주면 됨
