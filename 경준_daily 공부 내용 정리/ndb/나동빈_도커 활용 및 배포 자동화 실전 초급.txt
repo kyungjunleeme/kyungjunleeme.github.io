@@ -220,5 +220,22 @@ hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
+
 >>> read.me 파일 수정해서 생긴 에러 
 >>> 이 경우 pull을 먼저 해주면 됨
+
+
+도커(Docker) 활용 및 배포 자동화 실전 초급 ⑩ Jenkins를 이용해 Docker 프로젝트 빌드해보기
+
+docker pull jenkins
+docker run -d -p 8080:8080 -v /home/jenkins:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -u root jenkins
+docker logs (젠킨스_ 컨테이너 아이디)
+log에서 jenkins 비밀번호 확인
+
+(ipv4):8080
+> 해당 비밀번호 입력
+
+
+
+
+
