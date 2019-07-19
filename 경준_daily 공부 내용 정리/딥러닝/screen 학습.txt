@@ -1,0 +1,39 @@
+[출처]
+https://dreamlog.tistory.com/470
+
+screen은 물리적인 터미널을 다중화하여 사용할 수 있는 윈도우 매니저
+
+1. 설치
+sudo apt-get install screen
+
+2. screen 만들기
+
+screen -S (만들고자하는 screen 명)
+
+3. screen 목록 보기
+
+screen -list
+
+4. window 만들기
+
+Ctrl + a, c
+
+ctrl 키를 누르고 a 와 c를 차례대로 눌러 준다
+
+screen 위에 하나의 윈도우를 만들어 준다.
+
+5. window 종료하기
+
+exit
+
+window를 종료하고 이전 터미널로 돌아간다.
+
+모든 window를 종료하면 screen도 종료 된다.
+
+6 Window 목록 보기
+
+ctrl + a, w
+
+나머지는 우분투에서 실습해보면서 하기 
+
+
