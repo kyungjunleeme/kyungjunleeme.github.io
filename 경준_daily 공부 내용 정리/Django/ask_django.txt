@@ -648,7 +648,7 @@ By active
 
 shop 안의 admin.py 
 
-1)
+1) Admin 홈에서 item이 노출이 되지 않는 상태인데, 노출하는 방법
 
 from django.contrib import admin
 from .models import Item 
@@ -668,4 +668,155 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 
 
-Item object(1)
+2) Add item (Admin 에서 UI 형태로 진행)
+
+
+
+모델 클래스에 __str__ 구현
+admin 모델 리스트에서 "모델명 object"를 원하는 대로 변경하기 위해
+
+Item object(1) 를  customizing 하기 위해
+3)  shop > models.py 내에 코드를 추가함
+
+from django.db import models
+
+class Item(models.Model):
+    name = models.CharField(max_length=100)
+    desc = models.TextField(blank=True)
+    price = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):				<- 해당 부분을 추가
+        return self.name
+
+(설명)
+    def __str__(self):
+        return f'<{self.pk}> {self.name}'                   <- python 3.6 부터 지원되는 문법
+        return '<{}> {}'.format(self.pk, self.name)
+
+4) list_display 속성 정의
+모델 리스트에 출력할 컬럼 지정
+
+cf) shop > admin.py
+
+from django.contrib import admin
+from .models import Item 
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name', 'short_desc', 'price']
+
+    def short_desc(self, item):
+        return item.desc[:20]
+
+저장할 경우
+
+>>> 
+PK	NAME		SHORT DESC			PRICE
+1	아이폰 XS		애플에서 2018년 9월에 발표한 아	1400000
+
+
+5) shop > models.py 내 is_publish를 필드로 씀 (is_publish = models.BooleanField(default=False))
+
+from django.db import models
+
+class Item(models.Model):
+    name = models.CharField(max_length=100)
+    desc = models.TextField(blank=True)
+    price = models.PositiveIntegerField()
+    is_publish = models.BooleanField(default=False)        <--------- 필드 추가
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'<{self.pk}> {self.name}'
+
+
+6) python .\manage.py makemigrations shop 
+
+PS C:\Dev\kyungjuncompany> python .\manage.py makemigrations shop
+Migrations for 'shop':
+  shop\migrations\0002_item_is_publish.py
+    - Add field is_publish to item
+
+7) migrate 진행 - 기존의 record 에 대해 false 적용
+
+PS C:\Dev\kyungjuncompany> python .\manage.py migrate shop       
+Operations to perform:
+  Apply all migrations: shop
+Running migrations:
+  Applying shop.0002_item_is_publish... OK
+
+8) shop > admin.py 내에서 list_display 에 'is_publish' 추가
+
+from django.contrib import admin
+from .models import Item 
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name', 'short_desc', 'price', 'is_publish']
+
+    def short_desc(self, item):
+        return item.desc[:20]
+
+
+--------------------------------------------------------------------------------------
+
+list_display_links 속성 정의
+list_display 지정된 이름 중에, detail 링크를 걸 속성 리스트
+
+from django.contrib import admin
+from .models import Item 
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name', 'short_desc', 'price', 'is_publish']
+    list_display_links = ['name']
+
+    def short_desc(self, item):
+        return item.desc[:20]
+
+------------------------------------------------------------------------------------
+
+search_fields 속성 정의
+admin내 검색UI 통해, DB를 통한 where 쿼리 대상 필드 리스트
+
+from django.contrib import admin
+from .models import Item 
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name', 'short_desc', 'price', 'is_publish']
+    list_display_links = ['name']
+    search_fields = ['name']
+
+    def short_desc(self, item):
+        return item.desc[:20]
+
+
+---------------------------------------------------------------------------------------
+
+list_filter 속성 정의
+지정 필드값으로 필터링 옵션 제공
+
+
+from django.contrib import admin
+from .models import Item 
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'name', 'short_desc', 'price', 'is_publish']
+    list_display_links = ['name']
+    list_filter = ['is_publish']
+    search_fields = ['name']
+
+    def short_desc(self, item):
+        return item.desc[:20]
+
+<13강> 모델을 통한 조회 (기초)
+
