@@ -820,3 +820,233 @@ class ItemAdmin(admin.ModelAdmin):
 
 <13강> 모델을 통한 조회 (기초)
 
+QuerySet: SQL을 생성해주는 인터페이스
+
+python .\manage.py shell_plus --print-sql
+
+In [1]: Item.objects.all()
+Out[1]: SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21
+
+
+Execution time: 0.001001s [Database: default]
+
+<QuerySet [<Item: <1> 아이폰 XS>]>
+
+(주의) QuerySet이 출력되지 않음
+qs = Item.objects.all()
+
+
+실전예제) Item 목록/간단검색 페이지
+
+shop/views.py
+
+1. 
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from .models import Item <----------------- 추가
+
+def archives_year(request, year):
+    return HttpResponse('{}년도에 대한 내용'.format(year))
+
+
+def item_list(request):   <--------------------- 추가
+    qs = Item.objects.all()
+
+    return render(request, 'shop/item_list.html', {
+        'item_list': qs,
+    })
+
+2. 앱 이름과 동일한 디렉토리를 하나 더 만듬
+
+shop/templates/shop
+
+
+3. shop/templates/shop/item_list.html
+
+
+4. shop/urls.py 
+
+from django.urls import path, register_converter
+from .converters import FourDigitYearConverter
+from . import views
+
+register_converter(FourDigitYearConverter, 'yyyy')
+
+app_name = 'shop'
+
+urlpatterns = [
+    path('archives/<yyyy:year>/', views.archives_year),
+    path('', views.item_list),  <-------------------------- 추가: item_list를 호출하겠다고 연결해줌
+]
+
+
+5. shop/templates/shop/item_list.html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Blog for KyungjunCompany</title>
+    </head>
+    <body>
+        <h1>KyungjunCompany</h1>
+        <form action="" method="GET">
+            <input type="text" name="q" value="{{ q }}" />  <---------------------------  template을 넘겼으니 그 값을 value에서 찍어준다
+            <input type="submit" value="search" />
+        </form>
+        
+        <ul>
+            {% for item in item_list %}
+            <li>
+                {{ item.name }}
+                {{ item.price }}
+                {{ item.desc }}
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
+
+
+5. 
+
+from django.http import HttpResponse
+from django.shortcuts import render
+from .models import Item
+
+def archives_year(request, year):
+    return HttpResponse('{}년도에 대한 내용'.format(year))
+
+def item_list(request):
+    qs = Item.objects.all()
+
+    [option#1.  검색 결과 매칭]
+    q = request.GET.get('q', '') 
+    if q:   <-------------------  문자열 가지고 참/거짓 판단할 때는 0이면 거짓, 1이상이면 참
+        qs = qs.filter(name__icontains=q) <-------------------- 필드 타입별 다양한 조건 매칭 i는 Ignore Case
+    return render(request, 'shop/item_list.html', {
+        'item_list': qs,
+    
+    [option#2. 검색 키워드 표시]
+
+        'q': q,  <----------------------------------- template을 넘겼으니 그 값을 value에서 찍어준다
+    })
+
+
+
+14강 모델을 통한 데이터 생성/수정/삭제
+
+<<< Insert SQL >>>
+
+방법1) 각 Item.objects의 create 함수 호출 -> 반환값 : 모델 객체
+
+python manage.py shell_plus --print-sql
+
+In [1]: Item
+Out[1]: shop.models.Item
+
+In [2]: Item.objects.create(name='iPhone XS', price=1500000)
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "shop_item" ("name", "desc", "price", "is_publish", "created_at", "updated_at") VALUES ('iPhone XS', '', 1500000, 0, '2019-09-13 06:43:11.608028', '2019-09-13 06:43:11.608028')
+
+
+Execution time: 0.003000s [Database: default]
+
+Out[2]: <Item: <3> iPhone XS>
+
+-------------------------------------------------------------------------------------------------------------------
+
+방법2) 각 모델의 인스턴스의 save 함수 호출 -> 반환값 : 모델 객체
+
+
+In [3]: item = Item(name='iPhone XS Max')
+
+In [4]: item.price = 1800000
+
+In [5]: item.save()
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "shop_item" ("name", "desc", "price", "is_publish", "created_at", "updated_at") VALUES ('iPhone XS Max', '', 1800000, 0, '2019-09-13 06:47:18.198179', 
+'2019-09-13 06:47:18.198179')
+
+
+Execution time: 0.003204s [Database: default]
+
+<<< UPDATE SQL >>>
+
+# 방법1) 개별 모델 인스턴스의 save 함수 호출 -> 반환값: None
+
+In [6]: item = Item.objects.all().first()
+SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item" ORDER BY "shop_item"."id" ASC  LIMIT 1
+
+
+Execution time: 0.000000s [Database: default]
+
+
+In [7]: item
+Out[7]: <Item: <1> 아이폰 XS>
+
+In [8]: item.price
+Out[8]: 1400000
+
+In [9]: item.price = 160000   <----- 가격 필드 수정 
+
+In [10]: item.save()
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+UPDATE "shop_item" SET "name" = '아이폰 XS', "desc" = '애플에서 2018년 9월에 발표한 아이폰 새 버전입니다.그런데, 조금 비싼 감도 없지 않네요. 팀쿡은 하루 10000', "price" = 160000, "is_publish" = 0, "created_at" = '2019-09-03 14:10:56.698913', "updated_at" = '2019-09-13 06:55:06.827705' WHERE "shop_item"."id" = 1  <----- 가격 필드만 수정했으나 모든 필드에 대해서 수행됨
+
+
+Execution time: 0.001997s [Database: default]
+
+
+# 방법2) QuerySet의 update 함수 호출 -> 반환값 : 업데이트한 Row 개수 (정수)
+
+
+In [11]: Item
+Out[11]: shop.models.Item
+
+In [12]: qs = Item.objects.all()
+
+In [13]: qs
+Out[13]: SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21
+
+
+Execution time: 0.000000s [Database: default]
+
+<QuerySet [<Item: <1> 아이폰 XS>, <Item: <2> Lg>, <Item: <3> iPhone XS>, <Item: <4> iPhone XS Max>]>
+
+In [14]: qs.update(desc='changed desc')
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+UPDATE "shop_item" SET "desc" = 'changed desc'
+
+
+Execution time: 0.006019s [Database: default]
+
+Out[14]: 4
+
+
+>>>>> 방법 1과 방법 2과 다르니 확인 필요 SQL 문도 다름
+
+
+insert 에도 모델.save() 하는 방식이 있고, update 에도 모델.save()하는 방식이 있는데 언제 insert이고 언제 update 이냐?
+
+>> 장고의 내부 Logic의 경우 모델.pk가 None일 때는 insert를 수행하고, 모델.pk가 None 이 아닐때는 update를 수행함 (주의! 임의로 모델.pk에 값을 넣어서 수행하려고 하면 안됨)
+
+
+15강: 관계를 표현하는 모델 필드
