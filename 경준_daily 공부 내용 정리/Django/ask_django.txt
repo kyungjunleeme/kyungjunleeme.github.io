@@ -1050,3 +1050,154 @@ insert 에도 모델.save() 하는 방식이 있고, update 에도 모델.save()
 
 
 15강: 관계를 표현하는 모델 필드
+
+python manage.py shell_plus --print-sql
+
+from blog.models import Post, Comment
+
+Post.objects.all().count()
+
+Post.objects.create(author_name='user1', title='title1, content='content1')
+
+>>>>> 이 부분에서 계속 에러가 났는데! 
+
+S C:\Dev\kyungjuncompany> python .\manage.py showmigrations
+admin
+ [X] 0001_initial
+ [X] 0002_logentry_remove_auto_add
+ [X] 0003_logentry_add_action_flag_choices
+auth
+ [X] 0001_initial
+ [X] 0002_alter_permission_name_max_length
+ [X] 0003_alter_user_email_max_length
+ [X] 0004_alter_user_username_opts
+ [X] 0005_alter_user_last_login_null
+ [X] 0006_require_contenttypes_0002
+ [X] 0007_alter_validators_add_error_messages
+ [X] 0009_alter_user_last_name_max_length
+blog
+ [X] 0001_initial
+ [ ] 0002_comment                                                   <------------------------------------- blog 앱에 대해서 migration이 되지 않은 부분이 있어서 그런것으로 파악됨
+ [ ] 0003_post_author_name
+ [X] 0001_initial
+ [X] 0002_remove_content_type_name
+
+
+그래서 이를 해결 하기 위해
+
+PS C:\Dev\kyungjuncompany> python .\manage.py migrate blog   <------------------------- blog 앱에 대해 migrate를 수행함
+Operations to perform:
+  Apply all migrations: blog
+Running migrations:
+  Applying blog.0002_comment... OK
+  Applying blog.0003_post_author_name... OK
+
+
+
+OperationalError: table blog_post has no column named author_name
+
+
+Post.objects.all().count()
+
+Comment.objects.create(post=post, message='message1')
+
+
+>>>> 또 여기서 오류가 남
+
+
+In [1]: from blog.models import Post, Comment
+
+In [2]: Post.objects.all().count()
+SELECT COUNT(*) AS "__count" FROM "blog_post"
+
+
+Execution time: 0.002003s [Database: default]
+
+Out[2]: 0
+
+In [3]: Post.objects.create(author_name='user1', title='title1', content='content1')
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "blog_post" ("author_name", "title", "content", "created_at", "updated_at") VALUES ('user1', 'title1', 'content1', '2019-09-17 14:46:01.806623', '2019-09-17 14:46:01.806623')
+
+
+Execution time: 0.000991s [Database: default]
+
+Out[3]: <Post: Post object (1)>
+
+In [4]: Post.objects.all().count()
+SELECT COUNT(*) AS "__count" FROM "blog_post"
+
+Execution time: 0.001003s [Database: default]
+
+Out[4]: 1
+
+In [5]: Comment.objects.create(post=post, message='message1')
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-5-a2e15a83d40d> in <module>
+----> 1 Comment.objects.create(post=post, message='message1')
+
+NameError: name 'post' is not defined
+In [6]: Post.objects.all().count()                                                                                              
+
+In [6]: Comment.objects.create(post=post, message='message1')
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-6-a2e15a83d40d> in <module>
+----> 1 Comment.objects.create(post=post, message='message1')
+
+NameError: name 'post' is not defined
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Comment.objects.create(post=post, message='message2')
+
+Comment.objects.create(post=post, message='message3')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
