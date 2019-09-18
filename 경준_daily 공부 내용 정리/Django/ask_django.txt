@@ -1099,10 +1099,16 @@ OperationalError: table blog_post has no column named author_name
 
 Post.objects.all().count()
 
+
+
+
+
 Comment.objects.create(post=post, message='message1')
 
 
->>>> 또 여기서 오류가 남
+>>>> 또 여기서 오류가 남! 원인은 NameError: name 'post' is not defined 였기 때문임
+
+post = Post.objects.all().first()
 
 
 In [1]: from blog.models import Post, Comment
@@ -1135,6 +1141,10 @@ Execution time: 0.001003s [Database: default]
 
 Out[4]: 1
 
+
+
+
+
 In [5]: Comment.objects.create(post=post, message='message1')
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
@@ -1155,6 +1165,21 @@ NameError: name 'post' is not defined
 
 
 
+
+In [2]: Post.objects.all().first()
+SELECT "blog_post"."id", "blog_post"."author_name", "blog_post"."title", "blog_post"."content", "blog_post"."created_at", "blog_post"."updated_at" FROM "blog_post" ORDER BY "blog_post"."id" ASC  LIMIT 1
+
+
+Execution time: 0.001000s [Database: default]
+
+Out[2]: <Post: Post object (1)>
+
+
+In [3]: post = Post.objects.all().first()
+SELECT "blog_post"."id", "blog_post"."author_name", "blog_post"."title", "blog_post"."content", "blog_post"."created_at", "blog_post"."updated_at" FROM "blog_post" ORDER BY "blog_post"."id" ASC  LIMIT 1
+
+
+Execution time: 0.001001s [Database: default]
 
 
 
@@ -1179,18 +1204,98 @@ Comment.objects.create(post=post, message='message3')
 
 
 
+In [4]: Comment.objects.create(post=post, message='message1')
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "blog_comment" ("post_id", "message") VALUES (1, 'message1')
+
+
+Execution time: 0.002001s [Database: default]
+
+Out[4]: <Comment: Comment object (1)>
+
+In [5]: Comment.objects.create(post=post, message='message2')
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "blog_comment" ("post_id", "message") VALUES (1, 'message2')
+
+
+Execution time: 0.002020s [Database: default]
+
+Out[5]: <Comment: Comment object (2)>
+
+In [6]: Comment.objects.create(post=post, message='message3')
+BEGIN
+
+
+Execution time: 0.000000s [Database: default]
+
+INSERT INTO "blog_comment" ("post_id", "message") VALUES (1, 'message3')
+
+
+Execution time: 0.005504s [Database: default]
+
+Out[6]: <Comment: Comment object (3)>
+
+
+Comment.objects.all().count()
+
+ㄱ. post.comment_set.all()
+
+ㄴ. Comment.objects.filter(post=post)
+
+'ㄱ'과 'ㄴ'의 결과가 같은 SQL을 가리킴
 
 
 
+Out[1]: 3
+
+In [2]: post.comment_set.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-ae4779a7e333> in <module>
+----> 1 post.comment_set.all()
+
+NameError: name 'post' is not defined
+
+In [3]: from blog.models import Post, Comment
+
+In [4]: post.comment_set.all()
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-4-ae4779a7e333> in <module>
+----> 1 post.comment_set.all()
+
+NameError: name 'post' is not defined
+
+In [5]: post = Post.objects.all().first()
+SELECT "blog_post"."id", "blog_post"."author_name", "blog_post"."title", "blog_post"."content", "blog_post"."created_at", "blog_post"."updated_at" FROM "blog_post" ORDER BY "blog_post"."id" ASC  LIMIT 1
 
 
+Execution time: 0.001063s [Database: default]
 
 
+In [6]: post.comment_set.all()
+Out[6]: SELECT "blog_comment"."id", "blog_comment"."post_id", "blog_comment"."message" FROM "blog_comment" WHERE "blog_comment"."post_id" = 1  LIMIT 21
 
 
+Execution time: 0.000000s [Database: default]
+
+<QuerySet [<Comment: Comment object (1)>, <Comment: Comment object (2)>, <Comment: Comment object (3)>]>
+
+In [7]: Comment.objects.filter(post=post)
+Out[7]: SELECT "blog_comment"."id", "blog_comment"."post_id", "blog_comment"."message" FROM "blog_comment" WHERE "blog_comment"."post_id" = 1  LIMIT 21
 
 
+Execution time: 0.000259s [Database: default]
 
+<QuerySet [<Comment: Comment object (1)>, <Comment: Comment object (2)>, <Comment: Comment object (3)>]>
 
 
 
