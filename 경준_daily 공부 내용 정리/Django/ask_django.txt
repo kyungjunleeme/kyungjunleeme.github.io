@@ -1301,13 +1301,76 @@ FK에서의 related_name
 reverse 접근 시의 속성명 : 디폴트 -> "모델명소문자_set"
 
 
-교재 전체 revers_name -> related_name 충돌
+교재 전체 revers_name -> related_name 충돌할 경우 해당 예저 실습중
+
+1) shop > models.py
+from django.conf import settings
+from django.db import models
+
+class Item(models.Model):
+    name = models.CharField(max_length=100)
+    desc = models.TextField(blank=True)
+    price = models.PositiveIntegerField()
+    is_publish = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'<{self.pk}> {self.name}'
+
+
+class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+2) blog > models.py
+
+from django.conf import settings
+from django.db import models
+
+class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author_name = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    message = models.TextField()
+
+
+
+>>> blog와 shop 각각의 앱에서도 AUTH_USER_MODEL 에 관해서 외래키 존재) 
+
+3) 에러 확인 - makemigrations 명령이 실패
+
+PS C:\Dev\kyungjuncompany> python .\manage.py makemigrations
+SystemCheckError: System check identified some issues:
+
+ERRORS:
+blog.Post.author: (fields.E304) Reverse accessor for 'Post.author' clashes with reverse accessor for 
+'Post.author'.
+        HINT: Add or change a related_name argument to the definition for 'Post.author' or 'Post.author'.
+shop.Post.author: (fields.E304) Reverse accessor for 'Post.author' clashes with reverse accessor for 
+'Post.author'.
+        HINT: A
+
+4) 해결 방법
+이름 충돌 피하기
+> ㄱ. 어느 한쪽의 FK에 대해, reverse_name을 포기 -> related_name='+'
+> ㄴ. 어느 한쪽의 (혹은 모두) FK의 reverse_name을 변경
+	1) ex) FK(User, ..., related_name="blog_post_set")
+	2) ex) FK(User, ..., related_name="shop_post_set")
+
+
+ForeignKey.limit_choices_to 옵션
 
 
 
 
-
-
+ 
 
 
 
