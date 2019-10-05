@@ -1097,6 +1097,8 @@ Running migrations:
 OperationalError: table blog_post has no column named author_name
 
 
+python manage.py shell_plus --print-sql
+
 Post.objects.all().count()
 
 
@@ -1301,7 +1303,7 @@ FK에서의 related_name
 reverse 접근 시의 속성명 : 디폴트 -> "모델명소문자_set"
 
 
-교재 전체 revers_name -> related_name 충돌할 경우 해당 예저 실습중
+교재 전체 revers_name -> related_name 충돌할 경우 해당 예제 실습중
 
 1) shop > models.py
 from django.conf import settings
@@ -1365,14 +1367,24 @@ shop.Post.author: (fields.E304) Reverse accessor for 'Post.author' clashes with 
 	2) ex) FK(User, ..., related_name="shop_post_set")
 
 
-ForeignKey.limit_choices_to 옵션
-
-
-
-
+[참고 --- timezone.now]
+PS C:\Dev\kyungjuncompany> python .\manage.py makemigrations
+You are trying to add a non-nullable field 'author' to post without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>>
+Please enter some code, or 'exit' (with no quotes) to exit.
+>>> 'anonymous'
+Migrations for 'blog':
+  blog\migrations\0004_post_author.py
+    - Add field author to post
+Migrations for 'shop':
+  shop\migrations\0003_post.py
+    - Create model Post
  
-
-
-
-
 
