@@ -1387,4 +1387,15 @@ Migrations for 'shop':
   shop\migrations\0003_post.py
     - Create model Post
  
+16강 django-debug-toolbar를 통한 SQL 디버깅
+django-debug-toolbar 설치
 
+공식 문서 참고: https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+pip install django-debug-toolbar 설치후
+project의 urls.py 공식문서에서 추가하라는 내용 추가 해야 함
+
+주의사항
+1) project의 settings.py 공식문서에서 추가하라는 내용 추가 해야 함
+>> INTERNAL_IPS = ['127.0.0.1']
+추가하는 것 잊지 말것!
+2) 웹페이지의 템플릿에 필히 "<body>" 태그가 있어야만 django 
