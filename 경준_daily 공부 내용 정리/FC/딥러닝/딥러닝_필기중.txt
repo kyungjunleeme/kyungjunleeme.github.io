@@ -108,3 +108,13 @@ command 모드 파란색
 편집 모드 초록색
 
 
+안녕하세요 혹시 faster R-cnn을 학습시키기 위해서는 학습데이터 라벨링을 bounding box를 해야하고, mask rcnn을 학습시키기 위해서는 image segmentation을 해야한다고 알고 있는데, 저는 faster r-cnn의 성능을 향상시키기 위해 image segementation 데이터를 학습 시키고 싶은데, 1) 이것이 이론적으로 가능한가요? 2) 한장의 사진 속에 특정 object는 bounding box를 하고, 특정 object는 image segementation을 하는 것이 가능하나요?
+
+
+[의견1]
+bbox의 좌표를 레이블로 취하기 때문에 segmentation map을 바로 레이블로 쓸 수 없습니다
+[의견2]
+faster rcnn은 detection이고 mask rcnn은 segmentation이에요. RPN이후 classification, detection, segmentation 브랜치는 병렬로 동작하기때문에 성능향상보다는 해당 task에 따라 어떤 모델을 쓸지 선택하는게 좋을거같습니다
+
+
+
