@@ -1394,8 +1394,92 @@ django-debug-toolbar 설치
 pip install django-debug-toolbar 설치후
 project의 urls.py 공식문서에서 추가하라는 내용 추가 해야 함
 
+cf)
+
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
+(다음과 같은 형태와 같음) -> '+='
+>> urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
+
+
+
 주의사항
 1) project의 settings.py 공식문서에서 추가하라는 내용 추가 해야 함
 >> INTERNAL_IPS = ['127.0.0.1']
 추가하는 것 잊지 말것!
 2) 웹페이지의 템플릿에 필히 "<body>" 태그가 있어야만 django 
+
+[코드를 통한 SQL 내역 확인]
+
+- QuerySet의 query 속성 참조
+(예시)
+In [2]: from shop.models import Item
+
+In [3]: qs = Item.objects.all()
+
+In [4]: qs.query
+Out[4]: <django.db.models.sql.query.Query at 0x2667605c320>
+
+In [5]: str(qs.query)
+Out[5]: 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"'
+
+In [6]: print(qs.query)
+SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" 
+FROM "shop_item"
+
+
+
+
+
+쿼리 확인
+
+
+In [7]: from django.db import connection, connections
+
+In [8]: connection.queries
+Out[8]: []
+
+In [9]: qs.all()
+Out[9]: <QuerySet [<Item: <1> 아이폰 XS>, <Item: <2> Lg>, <Item: <3> iPhone XS>, <Item: <4> iPhone XS Max>]>
+
+In [10]: connection.queries
+Out[10]: 
+[{'sql': 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21',
+  'time': '0.002'}]
+
+In [11]: qs.all()
+Out[11]: <QuerySet [<Item: <1> 아이폰 XS>, <Item: <2> Lg>, <Item: <3> iPhone XS>, <Item: <4> iPhone XS Max>]>
+
+In [12]: qs.all()
+Out[12]: <QuerySet [<Item: <1> 아이폰 XS>, <Item: <2> Lg>, <Item: <3> iPhone XS>, <Item: <4> iPhone XS Max>]>
+
+In [13]: qs.all()
+Out[13]: <QuerySet [<Item: <1> 아이폰 XS>, <Item: <2> Lg>, <Item: <3> iPhone XS>, <Item: <4> iPhone XS Max>]>
+
+In [14]: connection.queries
+Out[14]: 
+[{'sql': 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21',
+  'time': '0.002'},
+ {'sql': 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21',
+  'time': '0.001'},
+ {'sql': 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21',
+  'time': '0.001'},
+ {'sql': 'SELECT "shop_item"."id", "shop_item"."name", "shop_item"."desc", "shop_item"."price", "shop_item"."is_publish", "shop_item"."created_at", "shop_item"."updated_at" FROM "shop_item"  LIMIT 21',
+  'time': '0.000'}]
+
+
+장고 개발시에는 settings.DEBUG = True -> False (필히 해줄 것) -> settings.DEBUG = True 시에만 쿼리 실행내역을 메모리에 누적
+
+
+그 외: django-querycount
+- SQL 실행내역을 개발서버 콘솔 표준출력
+- Ajax 내역도 출력 가능
+https://github.com/bradmontgomery/django-querycount/
+
+17강 장고 Logging과 SQL Logging 처리
+
+DEBUG : Detailed information, typically of interest
