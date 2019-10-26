@@ -1,0 +1,102 @@
+Program language(source code)
+statically typed(고정타입) - compiled (Java, c)
+Dynamically typed(동적타입) - Interpretable (Python, javascript)
+
+
+k = 'sss sfsf'
+for s in k:
+  print(s)
+
+[결과]
+s
+s
+s
+ 
+s
+f
+s
+f
+
+
+
+
+
+dir
+help(a.replace)
+type(dir(a))
+
+import math
+print(dir(math))
+
+for name in dir(math):
+    if 'cos' in name:
+        print(name)
+
+def search(module, key):
+  for name in dir(module):
+    if key in name:
+      print(name)
+
+search(a, 'place')
+
+
+tuple
+
+("apple", "banana", "cherry") + ("mango",)
+
+real_set ={2,2,3,4}
+print(real_set)
+print(type(real_set))
+
+real_dict={"g":"ggg"}
+print(real_dict)
+print(type(real_dict))
+
+dim(2) = 0 scalar
+dim([1
+      [2    1 vector
+      [3   
+
+dim (행렬) = 2 Matrix
+
+dim(3차원이상도형) = 3 Tensor
+
+numpy, pandas, Matplotlib
+
+2번째 강의노트 - 26, 27, 28 ~ 30
+
+prob = np.array([0.1, 0.2, 0.7])
+
+이미지는 3차원 Tensor이고, 750000 장
+
+행렬 좌표를 써야할 상황과 x,y 좌표를 사용할때가 있음
+
+numpy 의 array는 행렬좌표를 씀
+opencv -> 영상 좌표
+
+opencv -> RGB가 아니라 BGR로 읽어옴
+
+
+_list = list(range(9))
+_list[::-1]
+(출력결과)
+[8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+
+
+numpy -> BroadCasting
+
+
+## manipulate pixles - cv2 store them as bgr instead of rgb
+imm = beach.copy()
+
+>>>>>>> 왜 파란색으로 나오는지 이해 안감
+https://datascienceschool.net/view-notebook/9af8d8e93c084bc49f0ac2bb8a20e2a4/
+https://statkclee.github.io/trilobite/skimage-numpy.html
+
+imm[:, :, 2] = 255
+plt.imshow(imm)
+
+>> 파란색 이미지
+
+
