@@ -1,0 +1,13 @@
+
+
+c.NotebookApp.open_browser = False
+c.NotebookApp.password = 'sha~
+c.NotebookApp.ip = '0.0.0.0'
+
+
+#20191104
+파이썬 크롤링
+
+https://www.fun-coding.org/crawl_basic3.html
+
+https://victorydntmd.tistory.com/245
