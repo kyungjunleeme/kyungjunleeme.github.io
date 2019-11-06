@@ -1,0 +1,67 @@
+20191106
+
+뷰티풀 수프
+
+https://stackoverflow.com/questions/38028384/beautifulsoup-is-there-a-difference-between-find-and-select-python-3-x
+
+오늘 공부할 것
+https://stackoverflow.com/questions/13842088/set-value-for-particular-cell-in-pandas-dataframe-using-index/24517695#24517695
+
+https://www.fun-coding.org/mysql_advanced2.html
+
+
+
+
+C:\ProgramData\Anaconda3\lib\site-packages\pandas\core\frame.py:6692: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+To accept the future behavior, pass 'sort=False'.
+
+To retain the current behavior and silence the warning, pass 'sort=True'.
+
+  sort=sort)
+--------------------------------------------------------------------
+
+In [10]: df['counter'] = df.groupby(['Product','SubProd']).cumcount()+1
+
+In [11]: df
+Out[11]: 
+           Product SubProd  counter
+4/20/2012        A      BL        1
+4/27/2012        A      BL        2
+5/4/2012         A      BL        3
+5/11/2012        A      BL        4
+5/18/2012        A      BL        5
+4/20/2012        A      lk        1
+4/27/2012        A      lk        2
+5/4/2012         A      lk        3
+5/11/2012        A      lk        4
+5/18/2012        A      lk        5
+5/25/2012        A      lk        6
+10/31/2014       B      po        1
+11/7/2014        B      po        2
+11/14/2014       B      po        3
+11/21/2014       B      po        4
+11/28/2014       B      po        5
+
+https://www.fun-coding.org/mysql_advanced2.html
+
+
+
+
+
+
+20191105 
+
+PyAV
+
+https://buttercoconut.xyz/312/
+
+
+https://financedata.github.io/posts/python_starbucks_map.html
+
+https://shydev.tistory.com/29
+
+https://github.com/minsuk-heo/pandas/blob/master/Pandas_Cheatsheet.ipynb
+
+
