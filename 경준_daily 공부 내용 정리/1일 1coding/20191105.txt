@@ -1,4 +1,38 @@
+20191109
+
+https://bcho.tistory.com/1149
+
+
+
+20191107
+
+vs code - break point
+
+from pandas import DataFrame
+from random import randint
+res = DataFrame(columns=('lib', 'qty1', 'qty2'))
+print(res)
+for i in range(5):
+    print(i)
+    res.loc[i] = [randint(-1,1) for n in range(3)]
+    print(res)
+
+이게 가능? n이 안쓰여도
+
+http://www.incodom.kr/%ED%8C%8C%EC%9D%B4%EC%8D%AC/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC/pandas	
+
+
+
+
+
+
 20191106
+
+for 문
+
+break 
+
+while
 
 뷰티풀 수프
 
