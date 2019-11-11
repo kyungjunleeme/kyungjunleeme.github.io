@@ -1,3 +1,13 @@
+20191111
+
+UnboundLocalError: local variable 'df' referenced before assignment
+
+
+UnboundLocalError: local variable referenced before assignment
+
+
+
+
 20191109
 
 https://bcho.tistory.com/1149
