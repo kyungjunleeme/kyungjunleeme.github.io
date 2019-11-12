@@ -1,3 +1,26 @@
+20191112
+
+python D:\\xml_to_csv.py -i D:\\2019_10_14_train_files\\manage_archive\\original_data_1102\\medi_032 -o D:\\2019_10_14_train_files\\manage_archive\\original_data_1102\\medi_032_checked\\medi_032_checked.csv
+
+함수로 함수 반환
+https://codeday.me/ko/qa/20190323/131833.html
+
+
+split('_', int)
+
+        case_2
+        split('_',5)
+        
+        - g0018_rab_bottle_hand_1_grab_bottle_hand.jpg
+    
+        
+        
+        - 0000_not_medi_001_1_bottle.jpg
+
+        '''
+        only_object_name = only_file_name.split('_',4)[-1]
+
+
 20191111
 
 UnboundLocalError: local variable 'df' referenced before assignment
