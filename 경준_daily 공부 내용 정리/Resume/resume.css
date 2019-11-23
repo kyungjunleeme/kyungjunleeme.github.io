@@ -1,0 +1,93 @@
+/* css reset */
+
+h1, h2, h3, h4, h5, h6, p {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/* common css */
+.borderBottom{
+    border-bottom: 1px solid #c8c8c8;
+}
+
+body{
+    margin: 3% auto;
+    padding: 10px;
+    border: 1px solid black;
+    width: 609px;
+    height: auto;
+    
+}
+
+
+header{
+    text-align: right;
+    padding: 15px;
+}
+
+
+
+
+section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerName{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+}
+
+.headerJob{
+    color: #7c7c7c;
+}
+
+.leftSEction{
+    width: 45%;
+    padding-left: 10px;
+}
+
+.righttSEction{
+    width: 45%;
+}
+
+.profileImg{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.secItemTitle{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+
+.secItemSubtitle{
+    font-style: italic;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+}
+
+
+.secItemContent{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 10px;
+    /* em과 rem 단위가 있다 */
+    line-height: 1rem;
+    margin-bottom: 5px;
+}
+
+.secItemCareer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.secItemContent_1{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 10px;
+    margin-left: 20px;
+}

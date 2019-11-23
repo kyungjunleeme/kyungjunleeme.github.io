@@ -1,4 +1,42 @@
+20191118
+
+파이썬 파일크기 확인
+
+for jpg in jpg_list:
+    size = os.path.getsize(jpg)
+    print(size)
+
+
+
+
+20191117
+split('_', 3) 확실하게 공부하기
+
+a = '0031_medi_064@3_grab_bottle_hand.jpg'
+k = a.split('@')[-1]
+k.split('_', 1)[-1]
+
+'''결과는 grab_bottle_hand.jpg'''
+
+
+
+
+
+20191115
+
+Counter 
+
+201911113
+
+numpy
+http://taewan.kim/post/numpy_sum_axis/
+
+
+
+
 20191112
+
+
 
 python D:\\xml_to_csv.py -i D:\\2019_10_14_train_files\\manage_archive\\original_data_1102\\medi_032 -o D:\\2019_10_14_train_files\\manage_archive\\original_data_1102\\medi_032_checked\\medi_032_checked.csv
 
