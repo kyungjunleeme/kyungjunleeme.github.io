@@ -2,6 +2,13 @@
 kyungjun / qweasdzxc1!
 
 
+<1강> 01 개발환경 구축하기
+=====================================================
+◈ 웹프레임워크의 필요성
+◈ 장고 설치
+◈ 장고 프로젝트 생성하고 초기화하기
+====================================================
+
 pip install "django~=2.1.0"
 > 2.1.x 버전중에 최신버전을 설치한다.
 
@@ -22,7 +29,27 @@ python manage.py createsuperuser
 python manage.py runserver
 
 
+<2강> 장고의 주요 구성 요소
+=============================================================
+장고는 주요 구성 요소에 대해서 살펴보고, 맛보기로 장고로 웹페이지를 하나 만들어봅시다.
+=============================================================
+
+
 <3강> 
+==========================================================================
+장고 앱은 재사용성을 목적으로한 파이썬 팩키지입니다.
+
+장고 앱의 필요성에 대해서 살펴보고, 앱 규모에 따라 models/views 모듈을 팩키지로 전환하는 방법에 대해서 살펴보겠습니다.
+
+◈ 모듈: 파이썬 소스코드 파일
+◈ 패키지: 파이썬 소스코드 디렉토리
+
+◈ 프로젝트와 애플리케이션 모두 파이썬 패키지 디렉토리에 해당하는데, 파이썬에서는 __init__.py 파일이 존재하는 디렉토리를 패키지라고 합니다.  
+
+=========================================================================
+
+장고 앱
+- 재사용성을 목적으로한 파이썬 패키지 
 
 장고 앱 만들기
 
@@ -31,23 +58,84 @@ python manage.py startapp shop
 python manage.py startapp blog
 
 
-<4강>
+프로젝트명과 동일한 이름(이름 변경 가능) > 프로젝트(이름 변경 불가능) > settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'django_extensions',
+    'debug_toolbar',
+    'blog',
+    'shop',
+]
+
+에 앱을 추가해줘야 함
+
+
+
+<4강> 04 VSCode 장고 디버깅 세팅하기
+
+============================================================
+
+Visual Studio Code의 디버깅 기능을 통해 장고 애플리케이션을 디버깅해봅시다.
+
+=============================================================
+pip install pylint-django
+
+settings.json 내
+
+
+{
+    "window.zoomLevel": 0,
+    "python.linting.pylintArgs": [
+        "--disable C0111,C0301",
+        "--load-plugins pylint_django"
+    ],
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "prettier.printWidth": 140,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.fontFamily": "D2Coding, Consolas, 'Courier New', monospace",
+}
+
 
 view를 하나 만들어보려고함
 
 보통 view를 urls.py에 만들지는 않음
 
-pip install pyling-django
 
-<5강>
 
+<5강> 05 URLConf와 정규 표현식
+
+=====================================================================
+
+◈ 간단한 정규표현식에 대한 이해
+◈ 다양한 URL 패턴 : 정수, 년/월/일, slug
+◈ path, re_path
+◈ 새로운 장고 앱을 만들자마자 해야할 일
+
+=======================================================================
+
+<문법>
+- 1글자에 대한 패턴 + 연속된 출연 횟수 지정
+- 대괄호 내에 1글자에 대한 후보 글자들을 나열
+> 2자리 숫자
+"[0123456789][0123456789]" 혹은 [0-
 
 
 python .\manage.py startapp shop
 
 <step 1. shop app 안의 urls.py>
 
-shop app 안의 urls.py
+shop app 안의 urls.py 만들고 여기 내에
 
 from django.urls import path
 
@@ -145,7 +233,17 @@ urlpatterns = [
     path('archives/<yyyy:year>/', views.archives_year)  >>>숫자가 4번 반복되는 패턴에서는 archives_year이 호출된다.
 ]
 
-<6강>
+<6강> 다양한 응답의 함수 기반 뷰 만들기
+
+==========================================================================
+
+◈ What is View?
+◈ FBV & CBV
+◈ FBV로 강의를 진행하는 이유
+◈ HttpRequest와 HttpResponse
+◈ 다양한 타입의 Response
+
+==========================================================================
 
 다양한 타입의 HttpResponse
 
