@@ -257,7 +257,129 @@ https://start.goodtime.co.kr/2009/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%A0%
 [browser 한글 Content-Disposition 헤더의 filename 매개 변수를 HTTP로 인코딩하는 방법]
 https://code.i-harness.com/ko-kr/q/16d6f
 
-<7강>
+Pandas를 통한 CSV 응답 생성
+
+import pandas as pd
+from io import StringIO(메모리 기반 파일 객체)
+from django.http import HttpResponse
+
+(중간 코드 생략)
+
+io = StringIO()
+df.to_csv(io)
+io.seek(0) # 끝에 있는 file cursor를 처음으로 이동시킴
+
+
+
+<7강> 적절한 HTTP 상태코드로 응답하기
+======================================================================
+
+◈ 모든 웹서버는 현재 요청에 대한 처리결과를 숫자코드로서 응답해야 합니다. 이것이 HTTP 상태코드입니다.
+
+========================================================================
+
+https://github.com/django/django/blob/master/django/http/response.py 내
+
+class HttpResponseBase:
+    """
+    An HTTP response base class with dictionary-accessed headers.
+    This class doesn't handle content. It should not be used directly.
+    Use the HttpResponse and StreamingHttpResponse subclasses instead.
+    """
+
+    status_code = 200 ## 기본적으로 200
+
+    def __init__(self, content_type=None, status=None, reason=None, charset=None):
+        # _headers is a mapping of the lowercase name to the original case of
+        # the header (required for working with legacy systems) and the header
+        # value. Both the name of the header and its value are ASCII strings.
+        self._headers = {}
+        self._closable_objects = []
+        # This parameter is set by the handler. It's necessary to preserve the
+        # historical behavior of request_finished.
+        self._handler_class = None
+        self.cookies = SimpleCookie()
+        self.closed = False
+        if status is not None:
+            try:
+                self.status_code = int(status)  ### status_code를 직접 만들 수 도 있고
+            except (ValueError, TypeError):
+                raise TypeError('HTTP status code must be an integer.')
+
+            if not 100 <= self.status_code <= 599:
+                raise ValueError('HTTP status code must be an integer from 100 to 599.')
+        self._reason_phrase = reason
+        self._charset = charset
+        if content_type is None:
+            content_type = 'text/html; charset=%s' % self.charset
+        self['Content-Type'] = content_type
+
+
+
+class HttpResponseRedirect(HttpResponseRedirectBase):
+    status_code = 302
+
+
+class HttpResponsePermanentRedirect(HttpResponseRedirectBase):
+    status_code = 301
+
+
+class HttpResponseNotModified(HttpResponse):
+    status_code = 304
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        del self['content-type']
+
+    @HttpResponse.content.setter
+    def content(self, value):
+        if value:
+            raise AttributeError("You cannot set content to a 304 (Not Modified) response")
+        self._container = []
+
+
+class HttpResponseBadRequest(HttpResponse):
+    status_code = 400
+
+
+class HttpResponseNotFound(HttpResponse):
+    status_code = 404
+
+
+class HttpResponseForbidden(HttpResponse):
+    status_code = 403
+
+
+class HttpResponseNotAllowed(HttpResponse):
+    status_code = 405
+
+    def __init__(self, permitted_methods, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self['Allow'] = ', '.join(permitted_methods)
+
+    def __repr__(self):
+        return '<%(cls)s [%(methods)s] status_code=%(status_code)d%(content_type)s>' % {
+            'cls': self.__class__.__name__,
+            'status_code': self.status_code,
+            'content_type': self._content_type_for_repr,
+            'methods': self['Allow'],
+        }
+
+
+class HttpResponseGone(HttpResponse):
+    status_code = 410
+
+
+class HttpResponseServerError(HttpResponse):
+    status_code = 500
+
+
+class Http404(Exception):
+    pass
+
+
+
+
 그런 REST API로 괜찮은가
 https://tv.naver.com/v/2292653#comment_focus
 
