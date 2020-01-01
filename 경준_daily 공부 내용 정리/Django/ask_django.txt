@@ -278,6 +278,58 @@ io.seek(0) # 끝에 있는 file cursor를 처음으로 이동시킴
 
 ========================================================================
 
+Rest API
+
+그런 REST API로 괜찮은가
+https://tv.naver.com/v/2292653#comment_focus
+
+REST
+interoperability - 상호운용성
+REST 가 어떤 계기로 나온건가?
+REST(2000) - Roy T. Fielding 박사논문
+"Architectural Styles and the Design of Network-based Software Architectures"
+
+-----------------------------------------------------------
+
+API
+
+그런데
+
+CMIS(2008)
+- CMS를 위한 표준
+- EMC, IBM, Microsoft등이 함께 작업
+- REST 바인딩 지원
+
+(반박)
+Roy T. Fielding: "No Rest in CMIS"
+
+Microsoft REST API Guidelines (2016)
+
+(반박)
+Roy T. Fielding: "s/REST API/HTTP API/"
+"REST APIs must be hypertext-driven"
+"REST API를 위한 최고의 버저닝 전략은 버저닝을 안 하는 것"
+
+REST API
+> REST 아키텍쳐 스타일을 따르는 API
+
+REST
+> 분산 하이퍼미디어 시스템(예: 웹)을 위한 아키텍쳐 스타일
+
+아키텍쳐 스타일
+> 제약조건의 집합
+
+독립적 진화
+- 서버와 클라이언트가 각각 독립적으로 진화한다.
+- 서버의 기능이 변경되어도 클라이언트를 업데이트할 필요가 없다.
+- REST를 만들게 된 계기: "How do I improve HTTP without breaking the Web."
+
+
+
+===========================================================
+
+
+
 https://github.com/django/django/blob/master/django/http/response.py 내
 
 class HttpResponseBase:
@@ -378,51 +430,13 @@ class Http404(Exception):
     pass
 
 
+404 응답하는 몇 가지 예
 
+form django.shortcuts import get_object_or_404 
 
-그런 REST API로 괜찮은가
-https://tv.naver.com/v/2292653#comment_focus
-
-REST
-interoperability - 상호운용성
-REST 가 어떤 계기로 나온건가?
-REST(2000) - Roy T. Fielding 박사논문
-"Architectural Styles and the Design of Network-based Software Architectures"
-
------------------------------------------------------------
-
-API
-
-그런데
-
-CMIS(2008)
-- CMS를 위한 표준
-- EMC, IBM, Microsoft등이 함께 작업
-- REST 바인딩 지원
-
-(반박)
-Roy T. Fielding: "No Rest in CMIS"
-
-Microsoft REST API Guidelines (2016)
-
-(반박)
-Roy T. Fielding: "s/REST API/HTTP API/"
-"REST APIs must be hypertext-driven"
-"REST API를 위한 최고의 버저닝 전략은 버저닝을 안 하는 것"
-
-REST API
-> REST 아키텍쳐 스타일을 따르는 API
-
-REST
-> 분산 하이퍼미디어 시스템(예: 웹)을 위한 아키텍쳐 스타일
-
-아키텍쳐 스타일
-> 제약조건의 집합
-
-독립적 진화
-- 서버와 클라이언트가 각각 독립적으로 진화한다.
-- 서버의 기능이 변경되어도 클라이언트를 업데이트할 필요가 없다.
-- REST를 만들게 된 계기: "How do I improve HTTP without breaking the Web."
+def view2(request):
+    item = get_object_or_404(Item, pk=100) # 여기에 조건 추가해서 쓰는 것이 낫다, 계속 try except 구문 쓰면 번거로움
+                                                        # 내부에서 raise Http404
 
 <8강>
 
@@ -1039,6 +1053,11 @@ class ItemAdmin(admin.ModelAdmin):
         return item.desc[:20]
 
 <13강> 모델을 통한 조회 (기초)
+
+cf)
+[Meta 태그]
+https://www.youtube.com/watch?v=phu8gdbVMyo
+
 
 QuerySet: SQL을 생성해주는 인터페이스
 
