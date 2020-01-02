@@ -1,3 +1,7 @@
+https://django-orm-cookbook-ko.readthedocs.io/en/latest/query.html
+
+queryset, query
+
 장고 어드민 계정 정보:
 kyungjun / qweasdzxc1!
 
@@ -1058,6 +1062,12 @@ cf)
 [Meta 태그]
 https://www.youtube.com/watch?v=phu8gdbVMyo
 
+매개변수(parameter)
+전달인자(argument)
+
+매개변수는 변수(variable)로 전달인자는 값(value)으로 보는 것이 일반적
+https://wayhome25.github.io/etc/2017/12/31/parameter-argument/
+
 
 QuerySet: SQL을 생성해주는 인터페이스
 
@@ -1074,6 +1084,7 @@ Execution time: 0.001001s [Database: default]
 (주의) QuerySet이 출력되지 않음
 qs = Item.objects.all()
 
+37분 20초 - 9 페이지
 
 실전예제) Item 목록/간단검색 페이지
 
@@ -1116,7 +1127,7 @@ app_name = 'shop'
 
 urlpatterns = [
     path('archives/<yyyy:year>/', views.archives_year),
-    path('', views.item_list),  <-------------------------- 추가: item_list를 호출하겠다고 연결해줌
+    path('', views.item_list),  <-------------------------- 추가: 최상위 주소('')에 대해서 item_list를 호출하겠다고 연결해줌
 ]
 
 
@@ -1172,10 +1183,11 @@ def item_list(request):
         'q': q,  <----------------------------------- template을 넘겼으니 그 값을 value에서 찍어준다
     })
 
-
+============================================================================
 
 14강 모델을 통한 데이터 생성/수정/삭제
 
+============================================================================
 <<< Insert SQL >>>
 
 방법1) 각 Item.objects의 create 함수 호출 -> 반환값 : 모델 객체
