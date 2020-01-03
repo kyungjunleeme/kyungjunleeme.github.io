@@ -1,0 +1,7 @@
+* 는 리스트는 튜플 언패킹
+
+* args(arguments) 
+
+** 딕셔너리를 언패킹
+
+** kwargs(key argument(keyword arguments) 키워드 인수를 사용하는 가변인수
