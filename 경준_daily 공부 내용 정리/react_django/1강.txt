@@ -1,0 +1,19 @@
+1. node.js 설치
+
+node --version
+
+npm --version
+
+npm install --global yarn
+
+yarn --version
+
+yarn ( 유틸리티 노드로 개발된)
+
+where yarn
+
+which yarn(mac, linux)
+
+dev 옵션 (개발용으로 분류)
+
+info "fsevents@2.2.1" is an optional dependency and failed compatibility check. Excluding it from installation.
