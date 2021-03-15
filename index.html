@@ -104,7 +104,7 @@
       .catch(console.error);
 
     function sendMessage(sender, messageText) {
-      return axios.post(`${apiBaseUrl}/api/messages`, {
+      return axios.post(`${apiBaseUrl}/api/walk`, {
         sender: sender,
         text: messageText
       }).then(resp => resp.data);
