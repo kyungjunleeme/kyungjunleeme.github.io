@@ -40,7 +40,7 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row">
+        <div class="row" v-for="message in messages" v-bind:key="message.id">
           <div class="col-sm">
           <table class="table">
             <thead class="thead-light">
@@ -50,7 +50,7 @@
                 <th scope="col">Data</th>
               </tr>
             </thead>
-            <tbody v-for="message in messages" v-bind:key="message.id">
+            <tbody>
               <tr>
                 <th scope="row">{{message.id}}</th>
                 <td>{{message.sender}}</td>
