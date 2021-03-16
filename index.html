@@ -40,7 +40,7 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row" v-for="message in messages" v-bind:key="message.id">
+        <div class="row">
           <div class="col-sm">
           <table class="table">
             <thead class="thead-light">
@@ -50,7 +50,7 @@
                 <th scope="col">Data</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-for="message in messages" v-bind:key="message.id">
               <tr>
                 <th scope="row">{{message.id}}</th>
                 <td>{{message.sender}}</td>
@@ -70,7 +70,7 @@
   <script>
     const data = {
       username: '',
-      newMessage: '',
+      newMessage: {},
       messages: [],
       ready: false
     };
@@ -109,8 +109,8 @@
 
     function sendMessage(sender, messageText) {
       return axios.post(`${apiBaseUrl}/api/walk`, {
-        sender: sender,
-        text: messageText
+        sender: {sender},
+        text: {messageText}
       }).then(resp => resp.data);
     }
 
