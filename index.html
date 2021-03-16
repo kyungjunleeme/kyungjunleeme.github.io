@@ -70,10 +70,9 @@
   <script>
     const data = {
       username: '',
-      newMessage: "{}",
+      newMessage: '',
       messages: [],
-      ready: false,
-      sender: "{}"
+      ready: false
     };
 
     const app = new Vue({
@@ -110,7 +109,7 @@
 
     function sendMessage(sender, messageText) {
       return axios.post(`${apiBaseUrl}/api/walk`, {
-        sender: {sender},
+        sender: sender,
         text: messageText
       }).then(resp => resp.data);
     }
