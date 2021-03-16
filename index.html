@@ -21,7 +21,6 @@
 
 <body>
   <p>&nbsp;</p>
- <template> 
   <div id="app" class="container">
     <h3 style="text-align: center;">
       <img src="img/logo.png" height="90px" width="500px" role="presentation">
@@ -41,7 +40,7 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row" :key="message.id">
+        <div class="row">
           <div class="col-sm">
             <table class="table">
               <thead>
@@ -52,10 +51,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(message, index) in messages" :key="message.id">
-                    <td>{{message.id}}</td>
-                    <td>{{message.sender}}</td>
-                    <td>{{message.text}}</td>
+                <tr v-for="(message, index) in messages" :key="index">
+                    <td scope="row">{{message.id}}</td>
+                    <td scope="row">{{message.sender}}</td>
+                    <td scope="row">{{message.text}}</td>
                 </tr>
               </tbody>
             </table>
@@ -63,7 +62,6 @@
         </div>
       </transition-group>
     </div>
-</template>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.2/dist/browser/signalr.js"></script>
