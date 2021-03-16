@@ -42,26 +42,22 @@
       <transition-group name="slide-fade" tag="div">
         <div class="row" v-for="message in messages" v-bind:key="message.id">
           <div class="col-sm">
-          <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">Data</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">{{message.id}}</th>
-                <td>{{message.sender}}</td>
-                <td>{{message.text}}</td>
-              </tr>
-            </tbody>
-          </table>
+            <hr />
+            <div>
+              <div style="display: inline-block; padding-left: 12px;">
+                <div>
+                  <span class="text-info small"><strong>{{ message.sender }}</strong></span>
+                </div>
+                <div>
+                  {{ message.text }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </transition-group>
-    </div>
+      </div>
+    </transition-group>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.2/dist/browser/signalr.js"></script>
