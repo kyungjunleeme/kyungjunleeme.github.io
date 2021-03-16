@@ -16,6 +16,10 @@
       overflow-y: hidden;
       opacity: 0;
     }
+    .header { 
+    position: sticky; 
+    top:0; 
+    } 
   </style>
 </head>
 
@@ -40,19 +44,19 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row">
+        <div class="row" v-for="message in messages" v-bind:key="message.id">
           <div class="col-sm">
           <table class="table">
-            <thead class="thead-light">
+            <thead style="position: sticky;top: 0" class="thead-light">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">Data</th>
+                <th class="header" scope="col">#</th>
+                <th class="header" scope="col">Type</th>
+                <th class="header" scope="col">Data</th>
               </tr>
             </thead>
-            <tbody v-for="message in messages" v-bind:key="message.id">
+            <tbody>
               <tr>
-                <th scope="row">{{message.id}}</th>
+                <td>{{message.id}}</td>
                 <td>{{message.sender}}</td>
                 <td>{{message.text}}</td>
               </tr>
