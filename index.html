@@ -51,7 +51,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(message, index) in messages" v-bind:key="message.id">
+                <tr v-for="(message, index) in messages" :key="message.id">
                     <td>{{message.id}}</td>
                     <td>{{message.sender}}</td>
                     <td>{{message.text}}</td>
