@@ -44,7 +44,7 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row" v-for="message in messages" v-bind:key="message.id">
+        <div class="row">
           <div class="col-sm">
           <table class="table">
             <thead style="position: sticky;top: 0" class="thead-light">
@@ -55,7 +55,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="trrow" v-for="message in messages" v-bind:key="message.id">
                 <td>{{message.id}}</td>
                 <td>{{message.sender}}</td>
                 <td>{{message.text}}</td>
