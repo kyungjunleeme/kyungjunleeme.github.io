@@ -39,26 +39,31 @@
       <transition-group name="slide-fade" tag="div">
         <div class="row" v-for="message in messages" v-bind:key="message.id">
           <div class="col-sm">
-            <hr />
-            <div>
-              <div style="display: inline-block; padding-left: 12px;">
-                <div>
-                  <span class="text-info small"><strong>{{ message.sender }}</strong></span>
-                </div>
-                <div>
-                  {{ message.text }}
-                </div>
-              </div>
-            </div>
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">type</th>
+                <th scope="col">Detail</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>{{message.id}}</td>
+              <td>{{message.sender}}</td>
+              <td>{{message.text}}</td>
+            </tr>
+          </table>
           </div>
         </div>
-      </div>
     </transition-group>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.2/dist/browser/signalr.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+
+
+</body>
 
   <script>
     const data = {
@@ -111,6 +116,7 @@
       data.messages.unshift(message);
     }
   </script>
-</body>
+
+
 
 </html>
