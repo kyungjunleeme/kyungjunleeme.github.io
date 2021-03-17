@@ -40,24 +40,24 @@
     </div>
     <div v-if="ready">
       <transition-group name="slide-fade" tag="div">
-        <div class="row">
+        <div class="row" v-for="message in messages" v-bind:key="message.id">
           <div class="col-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Data</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(message, index) in messages" :key="index">
-                    <td scope="row">{{message.id}}</td>
-                    <td scope="row">{{message.sender}}</td>
-                    <td scope="row">{{message.text}}</td>
-                </tr>
-              </tbody>
-            </table>
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{{message.id}}</th>
+                <td>{{message.sender}}</td>
+                <td>{{message.text}}</td>
+              </tr>
+            </tbody>
+          </table>
           </div>
         </div>
       </transition-group>
