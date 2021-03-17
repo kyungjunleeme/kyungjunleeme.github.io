@@ -68,7 +68,7 @@
   <script>
     const data = {
       username: '',
-      newMessage: '',
+      newMessage: [],
       messages: [],
       ready: false
     };
@@ -79,7 +79,7 @@
       methods: {
         sendNewMessage: function () {
           sendMessage(this.username, this.newMessage);
-          this.newMessage = '';
+          this.newMessage = [];
         }
       }
     });
