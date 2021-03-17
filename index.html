@@ -70,8 +70,8 @@
   <script>
     const data = {
       username: '',
-      newMessage: [],
-      addMessage: [],
+      newMessage: {},
+      addMessage: {},
       messages: [],
       ready: false
     };
@@ -82,7 +82,7 @@
       methods: {
         sendNewMessage: function () {
           sendMessage(this.username, this.newMessage, this.addMessage);
-          this.newMessage = []; // newMessage 초기화
+          this.newMessage = {}; // newMessage 초기화
         }
       }
     });
