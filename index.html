@@ -52,7 +52,7 @@
               <td>{{message.id}}</td>
               <td>{{message.sender}}</td>
               <td>{{message.text}}</td>
-              <td>{{message.add_data}}</td>
+              <td>{{message.more_dt}}</td>
             </tr>
           </table>
           </div>
@@ -71,7 +71,6 @@
     const data = {
       username: '',
       newMessage: {},
-      addMessage: {},
       messages: [],
       ready: false
     };
@@ -81,9 +80,8 @@
       data: data,
       methods: {
         sendNewMessage: function () {
-          sendMessage(this.username, this.newMessage, this.addMessage);
-          this.newMessage = ''; // newMessage 초기화
-          this.addMessage = ''; // newMessage 초기화
+          sendMessage(this.username, this.newMessage);
+          this.newMessage = {}; // newMessage 초기화
         }
       }
     });
@@ -107,11 +105,11 @@
       .then(() => data.ready = true)
       .catch(console.error);
 
-    function sendMessage(sender, messageText, addData) {
+    function sendMessage(sender, messageText, add_data) {
       return axios.post(`https://signalreventgridintegration.azurewebsites.net/api/walk`, {
         sender: sender,
         text: messageText,
-        add_data: addData
+        more_dt: add_data
       }).then(resp => resp.data);
     }
 
