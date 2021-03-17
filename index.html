@@ -105,7 +105,6 @@
     connection.start()
       .then(() => data.ready = true)
       .catch(console.error);
-                        this.username, this.newMessage   
     function sendMessage(sender, messageText, more_dt) {
       return axios.post(`https://signalreventgridintegration.azurewebsites.net/api/walk`, {
         sender: sender,
