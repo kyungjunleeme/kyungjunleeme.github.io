@@ -82,7 +82,8 @@
       methods: {
         sendNewMessage: function () {
           sendMessage(this.username, this.newMessage, this.addMessage);
-          this.newMessage = {}; // newMessage 초기화
+          this.newMessage = ''; // newMessage 초기화
+          this.addMessage = ''; // newMessage 초기화
         }
       }
     });
