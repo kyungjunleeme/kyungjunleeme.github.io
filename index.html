@@ -24,7 +24,7 @@
     <div class="row" v-if="ready">
       <div class="signalr-demo col-sm">
         <hr />
-        <!-- 제출 이벤트가 페이지를 다시 로드 하지 않습니다  -->
+        <!-- 제출 이벤트가 페이지를 다시 로드 하지 않습니다 -->
         <form v-on:submit.prevent="sendNewMessage">
           <input type="text" v-model="newMessage" id="message-box" class="form-control" placeholder="Type message here..." autocomplete="off" />
         </form>
@@ -44,15 +44,35 @@
               <tr>
                 <th scope="col">No.</th>
                 <th scope="col">type</th>
-                <th scope="col">Detail</th>
-                <th scope="col">More</th>
+                <th scope="col">project</th>
+                <th scop="col" v-if="message.sender === 'No_ai_analyzed_data'">category</th>
+                <th scop="col" v-else>-</th>
+                <th scope="col">watch_sn</th>
+                <th scope="col">beacon_mac</th>
+                <th scope="col">복약 시각</th>
+                <th scope="col">복약 여부</th>
+                <th scope="col">복약분석결과</th>
+                <th scope="col">업로드 시각</th>
               </tr>
             </thead>
             <tr>
               <td>{{message.id}}</td>
               <td>{{message.sender}}</td>
-              <td>{{message.text}}</td>
-              <td>{{message.add_data}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">{{message.text['url']}}</td>
+              <td v-else>{{message.text['filename']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">-</td>
+              <td v-else>{{message.text['category']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">{{message.text['url']}}</td>
+              <td v-else>{{message.text['watch_sn']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">{{message.text['url']}}</td>
+              <td v-else>{{message.text['beacon_mac']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">{{message.text['url']}}</td>
+              <td v-else>{{message.text['stime']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">-</td>
+              <td v-else>{{message.text['prediction']}}</td>
+              <td v-if="message.sender === 'No_ai_analyzed_data'">-</td>
+              <td v-else>{{message.text['score']}}</td>
+              <td>{{message.text['time']}}</td>
             </tr>
           </table>
           </div>
@@ -71,7 +91,6 @@
     const data = {
       username: '',
       newMessage: '',
-      kjdata: {},
       messages: [],
       ready: false
     };
@@ -81,8 +100,8 @@
       data: data,
       methods: {
         sendNewMessage: function () {
-          sendMessage(this.username, this.newMessage, this.kjdata);
-          this.newMessage = ''; // newMessage 초기화
+          sendMessage(this.username, this.newMessage);
+          this.newMessage = '';
         }
       }
     });
@@ -105,11 +124,11 @@
     connection.start()
       .then(() => data.ready = true)
       .catch(console.error);
-    function sendMessage(sender, messageText, more_dt) {
+
+    function sendMessage(sender, messageText) {
       return axios.post(`https://signalreventgridintegration.azurewebsites.net/api/walk`, {
         sender: sender,
-        text: messageText,
-        add_data: more_dt
+        text: {messageText}
       }).then(resp => resp.data);
     }
 
@@ -118,6 +137,7 @@
       message.id = counter++; // vue transitions need an id
       data.messages.unshift(message);
     }
+
   </script>
 
 

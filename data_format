@@ -1,0 +1,14 @@
+ai 분석결과 있을 경우
+
+{ "result": "[{'filename': '2021-03-16/20IHPA00141A_210316_221434_E1FBDFC32269.mp4', 'project': 'CHINA', 'watch_sn': '20IHPA00141A', 
+'beacon_mac': 'E1FBDFC32269', 'stime': '2021-03-16T22:14:34', 'category': 'eyedrop', 
+'prediction': False, 'score': 99.5392, 'prediction_date': '2021-03-16T14:38:46.305000'}]", 
+
+"blob_modified": "2021-03-16 23:36:00+09:00" }
+
+ai 분석결과 없을 경우
+
+{ "blob_info": "{'api': 'PutBlockList', 'clientRequestId': 'ab54bbf6-8969-4843-b5c8-008a052a2069', 'requestId': '019a198e-301e-003d-6d75-1a914b000000', 
+'eTag': '0x8D8E88CCC766675', 'contentType': 'video/mp4', 'contentLength': 31930941, 'blobType': 'BlockBlob', 
+'url': 'https://inhandavidatas.blob.core.windows.net/wonju/2021-03-16/20IHPA00178A_210316_215953_D02947CA267D.mp4', 'sequencer': '00000000000000000000000000001FD20000000000a91f9c', 
+'storageDiagnostics': {'batchId': '6774ce25-b006-0063-0075-1a6248000000'}}", "blob_modified": "2021-03-17 00:04:29+09:00" }
