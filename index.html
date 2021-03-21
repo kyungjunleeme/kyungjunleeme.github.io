@@ -45,13 +45,15 @@
                 <th scope="col">No.</th>
                 <th scope="col">type</th>
                 <th scope="col">project</th>
-                <th scop="col" v-if="message.sender === 'No_ai_analyzed_data'">category</th>
-                <th scop="col" v-else>-</th>
+                <th scop="col" v-if="message.sender === 'No_ai_analyzed_data'">-</th>
+                <th scop="col" v-else>category</th>
                 <th scope="col">watch_sn</th>
                 <th scope="col">beacon_mac</th>
                 <th scope="col">복약 시각</th>
-                <th scope="col">복약 여부</th>
-                <th scope="col">복약분석결과</th>
+                <th scop="col" v-if="message.sender === 'No_ai_analyzed_data'">-</th>
+                <th scop="col" v-else>복약여부</th>
+                <th scop="col" v-if="message.sender === 'No_ai_analyzed_data'">-</th>
+                <th scop="col" v-else>복약분석(score)</th>
                 <th scope="col">업로드 시각</th>
               </tr>
             </thead>
